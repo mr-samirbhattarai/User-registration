@@ -55,58 +55,58 @@ public class RegisterController extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		
-//		if (username.length() < 6) {
-//			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=username");
-//			return;
-//		}
-//		
-//		
-//		if (username.matches(".*[^a-zA-Z0-9].*")) {
-//			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=specialUsername");
-//			return;
-//		}
+		if (username.length() < 6) {
+			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=username");
+			return;
+		}
+		
+		
+		if (username.matches(".*[^a-zA-Z0-9].*")) {
+			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=specialUsername");
+			return;
+		}
 		
 		String birthdayStr = request.getParameter("birthday");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Define date format
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD"); // Define date format
 		Date birthday = null;
-//		try {
-//			birthday = sdf.parse(birthdayStr);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		Date today = new Date();
-//		
-//		if (birthday.after(today)) {
-//			response.sendRedirect(request.getContextPath() + "/Pages/register.jsp?error=birthday");
-//			return;
-//		}
+		try {
+			birthday = sdf.parse(birthdayStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date today = new Date();
+		
+		if (birthday.after(today)) {
+			response.sendRedirect(request.getContextPath() + "/Pages/register.jsp?error=birthday");
+			return;
+		}
 		
 		
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
 		String phno = request.getParameter("phno");
-//	
-//		if (!phno.matches("\\+[0-9]{13}$")) {
-//			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=phno");
-//			return;
-//		}
+	
+		if (!phno.matches("\\+[0-9]{13}$")) {
+			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=phno");
+			return;
+		}
 		String subject = request.getParameter("subject");
 		String password = request.getParameter("password");
 		String retypePassword = request.getParameter("retype-password");
-//		
-//		if (!password.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,}$")) {
-//			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=password");
-//			return;
-//		}	
-//		
-//		if (!retypePassword.equals(password)) {
-//			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=retypePassword");
-//			return;
-//		}
-//		
-//		
-		User user = new User(firstname, lastname, username, password, subject, email, birthdayStr, gender, phno);
+		
+		if (!password.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,}$")) {
+			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=password");
+			return;
+		}	
+		
+		if (!retypePassword.equals(password)) {
+			response.sendRedirect(request.getContextPath()+"/Pages/register.jsp?error=retypePassword");
+			return;
+		}
+		
+		
+		User user = new User(firstname, lastname, username, gender, email, phno, password, birthdayStr, subject);
 		
 		try {
 		UserDAO userDAO = new UserDAO();
@@ -125,13 +125,14 @@ public class RegisterController extends HttpServlet {
 		out.print("Firstname: " + firstname);
 		out.print("Lastname: " + lastname);
 		out.println("Username: " + username);
-		out.println("Birthday: " + birthdayStr);
 		out.println("Gender: " + gender);
 		out.println("Email: " + email);
 		out.println("Phone Number: " + phno);
 		out.println("Subject: " + subject);
 		out.println("Password: " + password);
+		out.println("Birthday: " + birthdayStr);
 		out.println("RetypePassword: " + retypePassword);
+		out.println("subject: " + subject);
 	}
 
 }

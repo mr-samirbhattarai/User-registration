@@ -24,7 +24,7 @@ public class UserDAO {
 	public boolean addUser(User user) {
 		boolean isRowInserted = false;
 		
-		String querry = "INSERT INTO student(firstname, lastname, username, password, subject, email, birthday, gender, phno) VALUES (?,?,?,?,?,?,?,?,?)";
+		String querry = "INSERT INTO user(firstname, lastname, username, gender, email, phone_no, password, birthday, subject) VALUES (?,?,?,?,?,?,?,?,?)";
 		
 		if(conn != null) {
 			
@@ -33,12 +33,12 @@ public class UserDAO {
 				ps.setString(1, user.getFirstname());
 				ps.setString(2, user.getLastname());
 				ps.setString(3, user.getUsername());
-				ps.setString(4, user.getPassword());
-				ps.setString(5, user.getSubject());
-				ps.setString(6, user.getEmail());
-				ps.setString(7, user.getBirthday());
 				ps.setString(8, user.getGender());
+				ps.setString(6, user.getEmail());
 				ps.setString(9, user.getPhno());
+				ps.setString(4, user.getPassword());
+				ps.setString(7, user.getBirthday());
+				ps.setString(5, user.getSubject());
 								
 				ps.executeUpdate();
 			} catch (Exception e) {

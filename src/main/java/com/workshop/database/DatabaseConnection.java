@@ -16,12 +16,11 @@ public class DatabaseConnection {
 		conn = DriverManager.getConnection(jdbcURL, userName, password);
 		return conn;
 	}
-	
 	public static void main(String[] args) {
-		Connection con = null;
+		Connection conn = null;
 		try {
-			con = DatabaseConnection.getConnection();
-			if(con != null) {
+			conn = DatabaseConnection.getConnection();
+			if(conn != null) {
 				System.err.println("Connection Successful");
 			}
 		}catch (ClassNotFoundException e) {
